@@ -65,7 +65,8 @@
     </dependency>
   </dependencies>
   
-  <plugins>
+  <build>
+    <plugins>
   <plugin>
                  <groupId>com.spotify</groupId>
                  <artifactId>docker-maven-plugin</artifactId>
@@ -110,6 +111,7 @@
                  </configuration>复制代码
 
     </plugin>
-    </plugins>
+   </plugins>
+  </build>
   
 </project>
