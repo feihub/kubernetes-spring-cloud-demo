@@ -108,7 +108,7 @@
                      </resources>
                      <!--push到私有的hub-->
                      <serverId>docker-registry</serverId>
-                 </configuration>复制代码
+                 </configuration>
 
     </plugin>
    </plugins>
