@@ -111,6 +111,15 @@
                  </configuration>
 
     </plugin>
+      <!--       Maven setting.xml add
+  <server>
+      <id>docker-registry</id>
+      <username>用户名</username>
+      <password>密码</password>
+      <configuration>
+        <email>邮箱</email>
+      </configuration>
+    </server> -->
    </plugins>
   </build>
   
