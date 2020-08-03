@@ -1,85 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-  <parent>
+    <parent>
+        <groupId>com.ncs.springcloud</groupId>
+        <artifactId>ncs-parent</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
     <groupId>com.ncs.springcloud</groupId>
-    <artifactId>ncs-parent</artifactId>
+    <artifactId>eureka</artifactId>
     <version>1.0-SNAPSHOT</version>
-  </parent>
+    <packaging>jar</packaging>
 
-  <groupId>com.ncs.springcloud</groupId>
-  <artifactId>eureka</artifactId>
-  <version>1.0-SNAPSHOT</version>
-  <packaging>jar</packaging>
+    <name>eureka</name>
 
-  <name>eureka</name>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>${maven.docker.version}</version>
+                <executions>
+                    <execution>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>build</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <skipDocker>${docker.skip.build}</skipDocker>
+                    <imageName>${docker.repostory}/${docker.image.prefix}/${project.artifactId}:${project.version}</imageName>
+                    <dockerDirectory>${project.basedir}</dockerDirectory>
+                    <resources>
+                        <resource>
+                            <targetPath>/</targetPath>
+                            <directory>${project.build.directory}</directory>
+                            <include>${project.build.finalName}.jar</include>
+                        </resource>
+                    </resources>
+                    <serverId>docker-registry</serverId>
+                    <pushImage>true</pushImage>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
-  <build>
-    <plugins>
-  <plugin>
-                 <groupId>com.spotify</groupId>
-                 <artifactId>docker-maven-plugin</artifactId>
-                 <version>${maven.docker.version}</version>
-                 <!--插件绑定到phase-->
-                 <executions>
-                     <execution>
-                         <phase>install</phase>
-                         <goals>
-                             <goal>build</goal>
-                         </goals>
-                     </execution>
-                 </executions>
-                 <configuration>
-                 <!--配置变量，包括是否build、imageName、imageTag，非常灵活-->
-                     <skipDocker>${docker.skip.build}</skipDocker>
-                     <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
-                     <!--最后镜像产生了两个tag，版本和和最新的-->
-                     <imageTags>
-                         <imageTag>${project.version}</imageTag>
-                         <imageTag>latest</imageTag>
-                     </imageTags>
-                     <forceTags>true</forceTags>                 
-                     <env>
-                         <TZ>Asia/Shanghai</TZ>
-                     </env>
-                     <!--时区配置-->
-                     <runs>
-                         <run>ln -snf /usr/share/zoneinfo/$TZ /etc/localtime</run>
-                         <run>echo $TZ > /etc/timezone</run>                      
-                     </runs>
-                     <dockerDirectory>${project.basedir}</dockerDirectory>
-                     <resources>
-                         <resource>
-                             <targetPath>/</targetPath>
-                             <directory>${project.build.directory}</directory>
-                             <include>${project.build.finalName}.jar</include>
-                         </resource>
-                     </resources>
-                     <!--push到私有的hub-->
-                     <serverId>docker-registry</serverId>
-                 </configuration>
-
-    </plugin>
-      <!--       Maven setting.xml add
-  <server>
-      <id>docker-registry</id>
-      <username>用户名</username>
-      <password>密码</password>
-      <configuration>
-        <email>邮箱</email>
-      </configuration>
-    </server> -->
-   </plugins>
-  </build>
-  
-  <dependencies>
-    <dependency>
-      <groupId>org.springframework.cloud</groupId>
-      <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
-    </dependency>
-  </dependencies>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
+        </dependency>
+    </dependencies>
 
 </project>

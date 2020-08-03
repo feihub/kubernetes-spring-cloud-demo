@@ -19,7 +19,10 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <java.version>1.8</java.version>
+    <maven.docker.version>1.2.2</maven.docker.version>
+    <docker.skip.build>false</docker.skip.build>
+    <docker.image.prefix>docker-registry</docker.image.prefix>
+    <docker.repostory>192.168.0.107:5000</docker.repostory>
   </properties>
 
   <modules>
