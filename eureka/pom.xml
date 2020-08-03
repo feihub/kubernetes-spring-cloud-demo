@@ -17,6 +17,64 @@
 
   <name>eureka</name>
 
+  <build>
+    <plugins>
+  <plugin>
+                 <groupId>com.spotify</groupId>
+                 <artifactId>docker-maven-plugin</artifactId>
+                 <version>${maven.docker.version}</version>
+                 <!--插件绑定到phase-->
+                 <executions>
+                     <execution>
+                         <phase>install</phase>
+                         <goals>
+                             <goal>build</goal>
+                         </goals>
+                     </execution>
+                 </executions>
+                 <configuration>
+                 <!--配置变量，包括是否build、imageName、imageTag，非常灵活-->
+                     <skipDocker>${docker.skip.build}</skipDocker>
+                     <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
+                     <!--最后镜像产生了两个tag，版本和和最新的-->
+                     <imageTags>
+                         <imageTag>${project.version}</imageTag>
+                         <imageTag>latest</imageTag>
+                     </imageTags>
+                     <forceTags>true</forceTags>                 
+                     <env>
+                         <TZ>Asia/Shanghai</TZ>
+                     </env>
+                     <!--时区配置-->
+                     <runs>
+                         <run>ln -snf /usr/share/zoneinfo/$TZ /etc/localtime</run>
+                         <run>echo $TZ > /etc/timezone</run>                      
+                     </runs>
+                     <dockerDirectory>${project.basedir}</dockerDirectory>
+                     <resources>
+                         <resource>
+                             <targetPath>/</targetPath>
+                             <directory>${project.build.directory}</directory>
+                             <include>${project.build.finalName}.jar</include>
+                         </resource>
+                     </resources>
+                     <!--push到私有的hub-->
+                     <serverId>docker-registry</serverId>
+                 </configuration>
+
+    </plugin>
+      <!--       Maven setting.xml add
+  <server>
+      <id>docker-registry</id>
+      <username>用户名</username>
+      <password>密码</password>
+      <configuration>
+        <email>邮箱</email>
+      </configuration>
+    </server> -->
+   </plugins>
+  </build>
+  
   <dependencies>
     <dependency>
       <groupId>org.springframework.cloud</groupId>
