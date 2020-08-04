@@ -261,6 +261,20 @@ metadata:
   name: nginx-ingress
 spec:
   rules:
+  - host: localhost:6379
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: redis-service
+          servicePort: 6379
+  - host: localhost:5672
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: rabbitmq-service
+          servicePort: 5672
   - host: localhost:8086
     http:
       paths:
