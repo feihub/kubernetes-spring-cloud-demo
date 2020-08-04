@@ -5,28 +5,29 @@ metadata:
   name: redis-deployment
   namespace: default
 spec:
-  replicas: 1
   selector:
+    matchLabels:
       app: redis
+  replicas: 1
   template:
     metadata:
       labels:
         app: redis
     spec:
       containers:
-      - name: redis
-        image: redis
-        imagePullPolicy: IfNotPresent
-        ports:
-        - name: redis-http
-          containerPort: 6379
-        volumeMounts:
-        - mountPath: /data
-          name: data
-  volumes:
-  - name: redis-volume
-    hostPath:
-      path: /data  
+        - name: redis
+          image: redis
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: redis-http
+              containerPort: 6379
+          volumeMounts:
+            - mountPath: /data
+              name: redis-volume
+      volumes:
+        - name: redis-volume
+          hostPath:
+            path: /data
 ---
 apiVersion: v1
 kind: Service
@@ -38,9 +39,9 @@ spec:
   selector:
     app: redis
   ports:
-  - name: redis-service-http
-    port: 6379
-    targetPort: 6379
+    - name: redis-service-http
+      port: 6379
+      targetPort: 6379
 
 ---
 #############################rabbitmq###################################
@@ -50,28 +51,29 @@ metadata:
   name: rabbitmq-deployment
   namespace: default
 spec:
-  replicas: 1
   selector:
+    matchLabels:
       app: rabbitmq
+  replicas: 1
   template:
     metadata:
       labels:
         app: rabbitmq
     spec:
       containers:
-      - name: rabbitmq
-        image: rabbitmq
-        imagePullPolicy: IfNotPresent
-        ports:
-        - name: rabbitmq-http
-          containerPort: 5672
+        - name: rabbitmq
+          image: rabbitmq
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: rabbitmq-http
+              containerPort: 6379
           volumeMounts:
-        - mountPath: /data
-          name: data
-  volumes:
-  - name: rabbitmq-volume
-    hostPath:
-      path: /data  
+            - mountPath: /data
+              name: rabbitmq-volume
+      volumes:
+        - name: rabbitmq-volume
+          hostPath:
+            path: /data
 ---
 apiVersion: v1
 kind: Service
@@ -83,9 +85,9 @@ spec:
   selector:
     app: rabbitmq
   ports:
-  - name: rabbitmq-service-http
-    port: 5672
-    targetPort: 5672
+    - name: rabbitmq-service-http
+      port: 5672
+      targetPort: 5672
 
 ---
 #############################eureka######################################
@@ -95,21 +97,22 @@ metadata:
   name: eureka-deployment
   namespace: default
 spec:
-  replicas: 1
   selector:
+    matchLabels:
       app: eureka
+  replicas: 1
   template:
     metadata:
       labels:
         app: eureka
     spec:
       containers:
-      - name: eureka
-        image: eureka
-        imagePullPolicy: IfNotPresent
-        ports:
-        - name: eureka-http
-          containerPort: 8084
+        - name: eureka
+          image: 192.168.0.107:5000/docker-registry/eureka:1.0-SNAPSHOT
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: eureka-http
+              containerPort: 8084
 
 ---
 apiVersion: v1
@@ -122,9 +125,9 @@ spec:
   selector:
     app: eureka
   ports:
-  - name: eureka-service-http
-    port: 8084
-    targetPort: 8084
+    - name: eureka-service-http
+      port: 8084
+      targetPort: 8084
 
 ---
 #############################config######################################
@@ -144,25 +147,22 @@ metadata:
   name: config-deployment
   namespace: default
 spec:
-  replicas: 1
   selector:
+    matchLabels:
       app: config
+  replicas: 1
   template:
     metadata:
       labels:
         app: config
     spec:
       containers:
-      - name: config
-        image: config
-        imagePullPolicy: IfNotPresent
-        ports:
-        - name: config-http
-          containerPort: 8084
-      initContainers:
-      - name: init-config-deployment
-        image: busybox:1.28
-        command: ['sh', '-c', 'until nslookup eureka; do echo waiting for eureka; sleep 2; done;']
+        - name: config
+          image: 192.168.0.107:5000/docker-registry/config:1.0-SNAPSHOT
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: config-http
+              containerPort: 8084
 
 ---
 apiVersion: v1
@@ -175,9 +175,9 @@ spec:
   selector:
     app: config
   ports:
-  - name: config-service-http
-    port: 8082
-    targetPort: 8082
+    - name: config-service-http
+      port: 8082
+      targetPort: 8082
 
 ---
 #############################oauth2######################################
@@ -187,25 +187,22 @@ metadata:
   name: oauth2-deployment
   namespace: default
 spec:
-  replicas: 1
   selector:
+    matchLabels:
       app: oauth2
+  replicas: 1
   template:
     metadata:
       labels:
         app: oauth2
     spec:
       containers:
-      - name: oauth2
-        image: oauth2
-        imagePullPolicy: IfNotPresent
-        ports:
-        - name: oauth2-http
-          containerPort: 8016
-      initContainers:
-      - name: init-oauth2-deployment
-        image: busybox:1.28
-        command: ['sh', '-c', 'until nslookup config; do echo waiting for config; sleep 2; done;']
+        - name: oauth2
+          image: 192.168.0.107:5000/docker-registry/oauth2:1.0-SNAPSHOT
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: oauth2-http
+              containerPort: 8016
 
 ---
 apiVersion: v1
@@ -218,9 +215,9 @@ spec:
   selector:
     app: oauth2
   ports:
-  - name: oauth2-service-http
-    port: 8016
-    targetPort: 8016
+    - name: oauth2-service-http
+      port: 8016
+      targetPort: 8016
 
 ---
 #############################zuul######################################
@@ -230,25 +227,22 @@ metadata:
   name: zuul-deployment
   namespace: default
 spec:
-  replicas: 1
   selector:
+    matchLabels:
       app: zuul
+  replicas: 1
   template:
     metadata:
       labels:
         app: zuul
     spec:
       containers:
-      - name: zuul
-        image: zuul
-        imagePullPolicy: IfNotPresent
-        ports:
-        - name: zuul-http
-          containerPort: 8086
-      initContainers:
-      - name: init-zuul-deployment
-        image: busybox:1.28
-        command: ['sh', '-c', 'until nslookup config; do echo waiting for config; sleep 2; done;']
+        - name: zuul
+          image: 192.168.0.107:5000/docker-registry/zuul:1.0-SNAPSHOT
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: zuul-http
+              containerPort: 8086
 
 ---
 apiVersion: v1
@@ -261,9 +255,9 @@ spec:
   selector:
     app: zuul
   ports:
-  - name: zuul-service-http
-    port: 8086
-    targetPort: 8086
+    - name: zuul-service-http
+      port: 8086
+      targetPort: 8086
 
 ---
 #############################ingress######################################
@@ -273,51 +267,22 @@ metadata:
   name: nginx-ingress
 spec:
   rules:
-  - host: localhost:6379
-    http:
-      paths:
-      - path: /
-        backend:
-          serviceName: redis-service
-          servicePort: 6379
-  - host: localhost:5672
-    http:
-      paths:
-      - path: /
-        backend:
-          serviceName: rabbitmq-service
-          servicePort: 5672
-  - host: localhost:8086
-    http:
-      paths:
-      - path: /
-        backend:
-          serviceName: zuul-service
-          servicePort: 8086 
-  - host: localhost:8084
-    http:
-      paths:
-      - path: /
-        backend:
-          serviceName: eureka-service
-          servicePort: 8084 
-  - host: localhost:8082
-    http:
-      paths:
-      - path: /
-        backend:
-          serviceName: config-service
-          servicePort: 8082
-  - host: localhost:8016
-    http:
-      paths:
-      - path: /
-        backend:
-          serviceName: oauth2-service
-          servicePort: 8016
-
-
-
-
-
-
+    - host: localhost
+      http:
+        paths:
+          - path: /eureka/
+            backend:
+              serviceName: eureka-service
+              servicePort: 8084
+          - path: /config/
+            backend:
+              serviceName: config-service
+              servicePort: 8082
+          - path: /zuul/
+            backend:
+              serviceName: zuul-service
+              servicePort: 8086
+          - path: /oauth2/
+            backend:
+              serviceName: oauth2-service
+              servicePort: 8016
