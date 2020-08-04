@@ -21,7 +21,6 @@ spec:
           containerPort: 8084
 
 ---
-
 apiVersion: v1
 kind: Service
 metadata:
@@ -36,3 +35,42 @@ spec:
     port: 8084
     targetPort: 8084
 
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: config-deployment
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+      app: config
+  template:
+    metadata:
+      labels:
+        app: config
+    spec:
+      containers:
+      - name: config
+        image: config
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: config-http
+          containerPort: 8084
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: config-service
+  namespace: default
+spec:
+  type: ClusterIP
+  selector:
+    app: config
+  ports:
+  - name: config-service-http
+    port: 8082
+    targetPort: 8082
+    
+    
