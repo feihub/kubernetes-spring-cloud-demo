@@ -204,6 +204,13 @@ spec:
         backend:
           serviceName: config-service
           servicePort: 8082
+  - host: localhost:8016
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: oauth2-service
+          servicePort: 8016
 
 
 
