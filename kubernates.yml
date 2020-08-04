@@ -183,13 +183,27 @@ metadata:
   name: nginx-ingress
 spec:
   rules:
-  - host: localhost
+  - host: localhost:8086
     http:
       paths:
       - path: /
         backend:
           serviceName: zuul-service
           servicePort: 8086 
+  - host: localhost:8084
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: eureka-service
+          servicePort: 8084 
+  - host: localhost:8082
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: config-service
+          servicePort: 8082
 
 
 
