@@ -69,6 +69,10 @@ spec:
         ports:
         - name: config-http
           containerPort: 8084
+      initContainers:
+      - name: init-config-deployment
+        image: busybox:1.28
+        command: ['sh', '-c', 'until nslookup eureka; do echo waiting for eureka; sleep 2; done;']
 
 ---
 apiVersion: v1
@@ -84,5 +88,89 @@ spec:
   - name: config-service-http
     port: 8082
     targetPort: 8082
-    
-    
+
+---
+#############################oauth2######################################
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: oauth2-deployment
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+      app: oauth2
+  template:
+    metadata:
+      labels:
+        app: oauth2
+    spec:
+      containers:
+      - name: oauth2
+        image: oauth2
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: oauth2-http
+          containerPort: 8016
+      initContainers:
+      - name: init-oauth2-deployment
+        image: busybox:1.28
+        command: ['sh', '-c', 'until nslookup config; do echo waiting for config; sleep 2; done;']
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: oauth2-service
+  namespace: default
+spec:
+  type: ClusterIP
+  selector:
+    app: oauth2
+  ports:
+  - name: oauth2-service-http
+    port: 8016
+    targetPort: 8016
+
+---
+#############################zuul######################################
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zuul-deployment
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+      app: zuul
+  template:
+    metadata:
+      labels:
+        app: zuul
+    spec:
+      containers:
+      - name: zuul
+        image: zuul
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: zuul-http
+          containerPort: 8086
+      initContainers:
+      - name: init-zuul-deployment
+        image: busybox:1.28
+        command: ['sh', '-c', 'until nslookup config; do echo waiting for config; sleep 2; done;']
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: zuul-service
+  namespace: default
+spec:
+  type: ClusterIP
+  selector:
+    app: zuul
+  ports:
+  - name: zuul-service-http
+    port: 8086
+    targetPort: 8086
