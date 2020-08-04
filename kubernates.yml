@@ -174,3 +174,25 @@ spec:
   - name: zuul-service-http
     port: 8086
     targetPort: 8086
+
+---
+#############################ingress######################################
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: nginx-ingress
+spec:
+  rules:
+  - host: localhost
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: zuul-service
+          servicePort: 8086 
+
+
+
+
+
+
