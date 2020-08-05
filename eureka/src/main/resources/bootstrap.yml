@@ -6,7 +6,7 @@ spring:
     name: eureka
 
   zipkin:
-    baseUrl: http://zipkin/
+    baseUrl: http://zipkin-service/
   sleuth:
     sampler:
       probability: 1.0
