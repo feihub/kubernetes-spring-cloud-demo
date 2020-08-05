@@ -3,9 +3,10 @@ spring:
     name: zuul
   cloud:
     config:
-      discovery: 
-        enabled: true
-        serviceId: config
+  cloud:
+    config:
+      uri: http://config:8082
+      label: master
       profile: dev
 
 eureka:

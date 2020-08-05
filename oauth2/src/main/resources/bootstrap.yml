@@ -4,9 +4,8 @@ spring:
 
   cloud:
     config:
-      discovery: 
-        enabled: true
-        serviceId: config
+      uri: http://config:8082
+      label: master
       profile: dev
 
 eureka:
