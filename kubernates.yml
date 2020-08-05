@@ -270,10 +270,17 @@ metadata:
     kubernetes.io/ingress.class: "nginx"
 spec:
   rules:
-    - host: localhost
+    - host: zuul
       http:
         paths:
           - path: /
             backend:
               serviceName: zuul
               servicePort: 8086
+    - host: oauth2
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: oauth2
+              servicePort: 8016
