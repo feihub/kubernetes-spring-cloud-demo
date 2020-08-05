@@ -3,8 +3,6 @@ spring:
     name: zuul
   cloud:
     config:
-  cloud:
-    config:
       uri: http://config:8082
       label: master
       profile: dev

@@ -275,5 +275,5 @@ spec:
         paths:
           - path: /
             backend:
-              serviceName: eureka
-              servicePort: 8084
+              serviceName: zuul
+              servicePort: 8086
