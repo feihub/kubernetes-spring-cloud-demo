@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: redis-deployment
+  name: redis
   namespace: default
 spec:
   selector:
@@ -19,27 +19,27 @@ spec:
           image: redis
           imagePullPolicy: IfNotPresent
           ports:
-            - name: redis-http
+            - name: redis
               containerPort: 6379
           volumeMounts:
             - mountPath: /data
-              name: redis-volume
+              name: redis
       volumes:
-        - name: redis-volume
+        - name: redis
           hostPath:
             path: /data
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: redis-service
+  name: redis
   namespace: default
 spec:
   type: ClusterIP
   selector:
     app: redis
   ports:
-    - name: redis-service-http
+    - name: redis
       port: 6379
       targetPort: 6379
 
@@ -48,7 +48,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: rabbitmq-deployment
+  name: rabbitmq
   namespace: default
 spec:
   selector:
@@ -65,27 +65,27 @@ spec:
           image: rabbitmq
           imagePullPolicy: IfNotPresent
           ports:
-            - name: rabbitmq-http
+            - name: rabbitmq
               containerPort: 6379
           volumeMounts:
             - mountPath: /data
-              name: rabbitmq-volume
+              name: rabbitmq
       volumes:
-        - name: rabbitmq-volume
+        - name: rabbitmq
           hostPath:
             path: /data
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: rabbitmq-service
+  name: rabbitmq
   namespace: default
 spec:
   type: ClusterIP
   selector:
     app: rabbitmq
   ports:
-    - name: rabbitmq-service-http
+    - name: rabbitmq
       port: 5672
       targetPort: 5672
 
@@ -94,7 +94,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: eureka-deployment
+  name: eureka
   namespace: default
 spec:
   selector:
@@ -111,21 +111,21 @@ spec:
           image: 192.168.0.107:5000/docker-registry/eureka:1.0-SNAPSHOT
           imagePullPolicy: IfNotPresent
           ports:
-            - name: eureka-http
+            - name: eureka
               containerPort: 8084
 
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: eureka-service
+  name: eureka
   namespace: default
 spec:
   type: ClusterIP
   selector:
     app: eureka
   ports:
-    - name: eureka-service-http
+    - name: eureka
       port: 8084
       targetPort: 8084
 
@@ -134,7 +134,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: config-external-service
+  name: config-external
   namespace: default
 spec:
   type: ExternalName
@@ -144,7 +144,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: config-deployment
+  name: config
   namespace: default
 spec:
   selector:
@@ -161,21 +161,21 @@ spec:
           image: 192.168.0.107:5000/docker-registry/config:1.0-SNAPSHOT
           imagePullPolicy: IfNotPresent
           ports:
-            - name: config-http
+            - name: config
               containerPort: 8084
 
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: config-service
+  name: config
   namespace: default
 spec:
   type: ClusterIP
   selector:
     app: config
   ports:
-    - name: config-service-http
+    - name: config
       port: 8082
       targetPort: 8082
 
@@ -184,7 +184,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: oauth2-deployment
+  name: oauth2
   namespace: default
 spec:
   selector:
@@ -201,21 +201,21 @@ spec:
           image: 192.168.0.107:5000/docker-registry/oauth2:1.0-SNAPSHOT
           imagePullPolicy: IfNotPresent
           ports:
-            - name: oauth2-http
+            - name: oauth2
               containerPort: 8016
 
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: oauth2-service
+  name: oauth2
   namespace: default
 spec:
   type: ClusterIP
   selector:
     app: oauth2
   ports:
-    - name: oauth2-service-http
+    - name: oauth2
       port: 8016
       targetPort: 8016
 
@@ -224,7 +224,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: zuul-deployment
+  name: zuul
   namespace: default
 spec:
   selector:
@@ -241,21 +241,21 @@ spec:
           image: 192.168.0.107:5000/docker-registry/zuul:1.0-SNAPSHOT
           imagePullPolicy: IfNotPresent
           ports:
-            - name: zuul-http
+            - name: zuul
               containerPort: 8086
 
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: zuul-service
+  name: zuul
   namespace: default
 spec:
   type: ClusterIP
   selector:
     app: zuul
   ports:
-    - name: zuul-service-http
+    - name: zuul
       port: 8086
       targetPort: 8086
 
@@ -273,17 +273,17 @@ spec:
         paths:
           - path: /eureka/
             backend:
-              serviceName: eureka-service
+              serviceName: eureka
               servicePort: 8084
           - path: /config/
             backend:
-              serviceName: config-service
+              serviceName: config
               servicePort: 8082
           - path: /zuul/
             backend:
-              serviceName: zuul-service
+              serviceName: zuul
               servicePort: 8086
           - path: /oauth2/
             backend:
-              serviceName: oauth2-service
+              serviceName: oauth2
               servicePort: 8016
