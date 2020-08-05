@@ -12,7 +12,7 @@ spring:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://eureka-service:8084/eureka/
+      defaultZone: http://eureka:8084/eureka/
 
   session:
     store-type: redis
