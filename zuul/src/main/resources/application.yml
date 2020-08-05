@@ -3,11 +3,11 @@ security:
     client:
       clientId: admin
       clientSecret: password
-      userAuthorizationUri: http://oauth2:8016/oauth/authorize
-      accessTokenUri: http://oauth2:8016/oauth/token
+      userAuthorizationUri: http://oauth2-service:8016/oauth/authorize
+      accessTokenUri: http://oauth2-service:8016/oauth/token
       clientAuthenticationScheme: form
     resource:
-      userInfoUri: http://oauth2:8016/user/info
+      userInfoUri: http://oauth2-service:8016/user/info
       preferTokenInfo: false
 
 spring:
