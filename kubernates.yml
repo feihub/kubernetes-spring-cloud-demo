@@ -287,3 +287,7 @@ spec:
             backend:
               serviceName: oauth2
               servicePort: 8016
+
+
+
+#https://kubernetes.github.io/ingress-nginx/deploy/#using-helm
