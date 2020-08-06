@@ -3,11 +3,11 @@ security:
     client:
       clientId: admin
       clientSecret: password
-      userAuthorizationUri: http://oauth2:32080/oauth/authorize
-      accessTokenUri: http://oauth2:32080/oauth/token
+      userAuthorizationUri: http://oauth2.test.spring:32080/oauth/authorize
+      accessTokenUri: http://oauth2.test.spring:32080/oauth/token
       clientAuthenticationScheme: form
     resource:
-      userInfoUri: http://oauth2:32080/user/info
+      userInfoUri: http://oauth2.test.spring:32080/user/info
       preferTokenInfo: false
 
 spring:
