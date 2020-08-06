@@ -12,7 +12,7 @@ spring:
           basedir: gitconfig
           skipSslValidation: true
           username: xiaofeiwang2016@163.com
-          password: xiaofei056236
+          password: 
           default-label: master
 
   zipkin:
