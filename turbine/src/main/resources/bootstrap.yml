@@ -3,12 +3,11 @@ spring:
     name: turbine
   cloud:
     config:
-      discovery: 
-        enabled: true
-        serviceId: config
+      uri: http://config:8082
+      label: master
       profile: dev
 
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://localhost:8084/eureka/
+      defaultZone: http://eureka:8084/eureka/
