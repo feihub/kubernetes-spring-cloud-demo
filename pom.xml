@@ -27,7 +27,6 @@
 
   <modules>
     <module>config</module>
-    <module>eureka</module>
     <module>oauth2</module>
     <module>zuul</module>
 <!--     <module>business</module>
