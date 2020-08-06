@@ -8,7 +8,7 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/feihub/spring-cloud-demo-config-data3.git
+          uri: https://github.com/feihub/kubernetes-spring-cloud-demo-config-data.git
           basedir: gitconfig
           skipSslValidation: true
           username: xiaofeiwang2016@163.com
