@@ -443,3 +443,17 @@ spec:
             backend:
               serviceName: oauth2
               servicePort: 8016
+    - host: turbine
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: turbine
+              servicePort: 8010
+    - host: zipkin
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: zipkin
+              servicePort: 8012
