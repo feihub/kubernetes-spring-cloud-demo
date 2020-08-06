@@ -1,4 +1,4 @@
-# Spring Cloud Demo3
+# Kubernetes Spring Cloud Demo
 - ### spring-cloud: Greenwich.SR6
 - ### spring-boot: 2.1.9.RELEASE
 - #### Kubernates/Docker/Spring Cloud Config/Spring Cloud Bus/Spring Cloud OpenFeign/Spring Cloud Security+ Oauth2 + SSO + Spring Session/Spring Cloud Netflix(Zuul/Hystrix) + Turbine/Spring Cloud Sleuth + Zipkin/Redis/Rabbitmq
