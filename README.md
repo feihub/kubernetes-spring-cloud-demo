@@ -8,30 +8,28 @@
 
 ## 1. oauth2:      8016   
 
-http://localhost:8016
+http://oauth2:32080
 
 ## 2. zuul:     8086
 
-http://localhost:8086
+http://zuul:32080
 
-http://localhost:8086/business/
+http://zuul:32080/business/
 
-http://localhost:8086/business/autoShow
+http://zuul:32080/business/autoShow
 
-http://localhost:8086/business/openfeign/test
+http://zuul:32080/business/openfeign/test
 
-http://localhost:8086/business2/
+http://zuul:32080/business2/
 
-http://localhost:8086/business2/test/rateLimiter
-
-POST:http://localhost:8086/actuator/refresh
+http://zuul:32080/business2/test/rateLimiter
 
 ## 3. turbine:     8010
 
-http://localhost:8010/hystrix
+http://turbine:32080/hystrix
 
-http://localhost:8010/turbine.stream
+http://turbine:32080/turbine.stream
 
 ## 4. zipkin:         8012
 
-http://localhost:8012
+http://zipkin:32080
