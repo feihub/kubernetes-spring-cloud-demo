@@ -260,6 +260,86 @@ spec:
       targetPort: 8086
 
 ---
+#############################business######################################
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: business
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: business
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: business
+    spec:
+      containers:
+        - name: business
+          image: 192.168.0.107:5000/docker-registry/business:1.0-SNAPSHOT
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: business
+              containerPort: 8088
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: business
+  namespace: default
+spec:
+  type: ClusterIP
+  selector:
+    app: business
+  ports:
+    - name: business
+      port: 8088
+      targetPort: 8088
+
+---
+#############################business2######################################
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: business2
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: business2
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: business2
+    spec:
+      containers:
+        - name: business2
+          image: 192.168.0.107:5000/docker-registry/business2:1.0-SNAPSHOT
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: business2
+              containerPort: 8014
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: business2
+  namespace: default
+spec:
+  type: ClusterIP
+  selector:
+    app: business2
+  ports:
+    - name: business2
+      port: 8014
+      targetPort: 8014
+
+---
 #############################ingress######################################
 apiVersion: extensions/v1beta1
 kind: Ingress
