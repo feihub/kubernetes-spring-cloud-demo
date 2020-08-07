@@ -6,28 +6,28 @@
 
 ## 1. oauth2
 
-http://oauth2:32080
+http://oauth2.test.spring:32080
 
 ## 2. zuul
 
-http://zuul:32080
+http://zuul.test.spring:32080
 
-http://zuul:32080/business/
+http://zuul.test.spring:32080/business/
 
-http://zuul:32080/business/autoShow
+http://zuul.test.spring:32080/business/autoShow
 
-http://zuul:32080/business/openfeign/test
+http://zuul.test.spring:32080/business/openfeign/test
 
-http://zuul:32080/business2/
+http://zuul.test.spring:32080/business2/
 
-http://zuul:32080/business2/test/rateLimiter
+http://zuul.test.spring:32080/business2/test/rateLimiter
 
 ## 3. turbine
 
-http://turbine:32080/hystrix
+http://turbine.test.spring:32080/hystrix
 
-http://turbine:32080/turbine.stream
+http://turbine.test.spring:32080/turbine.stream
 
 ## 4. zipkin
 
-http://zipkin:32080
+http://zipkin.test.spring:32080
