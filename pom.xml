@@ -25,15 +25,15 @@
     <docker.repostory>192.168.0.107:5000</docker.repostory>
   </properties>
 
-  <modules>
-    <module>config</module>
-    <module>oauth2</module>
-    <module>zuul</module>
-<!--     <module>business</module>
-    <module>business2</module>
-    <module>turbine</module>
-    <module>zipkin</module> -->
-  </modules>
+    <modules>
+        <module>config</module>
+        <module>oauth2</module>
+        <module>zuul</module>
+        <module>business</module>
+        <module>business2</module>
+        <module>turbine</module>
+        <module>zipkin</module>
+    </modules>
 
   <dependencyManagement>
     <dependencies>
