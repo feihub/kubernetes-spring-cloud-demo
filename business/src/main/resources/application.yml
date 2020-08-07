@@ -1,14 +1,14 @@
 security:
   oauth2:
-      client:
-        clientId: admin
-        clientSecret: password
-        userAuthorizationUri: http://oauth2:32080/oauth/authorize
-        accessTokenUri: http://oauth2:32080/oauth/token
-        clientAuthenticationScheme: form
-      resource:
-        userInfoUri: http://oauth2:32080/user/info
-        preferTokenInfo: false
+    client:
+      clientId: admin
+      clientSecret: password
+      userAuthorizationUri: http://oauth2.test.spring:32080/oauth/authorize
+      accessTokenUri: http://oauth2:8016/oauth/token
+      clientAuthenticationScheme: form
+    resource:
+      userInfoUri: http://oauth2:8016/user/info
+      preferTokenInfo: false
 
 hystrix.command.default.execution.isolation.strategy: SEMAPHORE
 

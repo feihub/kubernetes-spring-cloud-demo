@@ -4,7 +4,7 @@ security:
       clientId: admin
       clientSecret: password
       userAuthorizationUri: http://oauth2.test.spring:32080/oauth/authorize
-      accessTokenUri: http://oauth2.test.spring:32080/oauth/token
+      accessTokenUri: http://oauth2:8016/oauth/token
       clientAuthenticationScheme: form
     resource:
       userInfoUri: http://oauth2:8016/user/info
