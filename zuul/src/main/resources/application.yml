@@ -7,7 +7,7 @@ security:
       accessTokenUri: http://oauth2.test.spring:32080/oauth/token
       clientAuthenticationScheme: form
     resource:
-      userInfoUri: http://oauth2.test.spring:32080/user/info
+      userInfoUri: http://oauth2:8016/user/info
       preferTokenInfo: false
 
 spring:
