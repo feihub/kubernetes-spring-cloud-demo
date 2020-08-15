@@ -26,7 +26,7 @@ http://zuul.test.spring:32080/business2/test/rateLimiter
 
 http://turbine.test.spring:32080/hystrix
 
-http://turbine.test.spring:32080/turbine.stream
+http://turbine:8010/turbine.stream
 
 ## 4. zipkin
 
