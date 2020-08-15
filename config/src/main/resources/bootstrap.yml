@@ -17,6 +17,8 @@ spring:
 
   zipkin:
     baseUrl: http://zipkin:8012/
+    sender:
+      type: web
   sleuth:
     sampler:
       probability: 1.0
