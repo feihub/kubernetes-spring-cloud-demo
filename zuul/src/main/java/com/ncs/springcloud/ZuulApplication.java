@@ -1,5 +1,6 @@
 package com.ncs.springcloud;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
@@ -19,7 +20,16 @@ public class ZuulApplication {
     }
 
     @RequestMapping("/")
-    public String home(){
-        return "ZuulApplicationOk";
+    @HystrixCommand(fallbackMethod="zuulFallback")
+    public String home() {
+
+        int i = 1/0;
+
+        return "zuul";
     }
+
+    public String zuulFallback() {
+        return "zuulFallback";
+    }
+
 }
