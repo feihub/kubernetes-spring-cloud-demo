@@ -18,11 +18,6 @@ public class TurbineApplication {
     }
 
     @Bean
-    public ServletRegistrationBean hystrixStream(){
-        return new ServletRegistrationBean(new TurbineStreamServlet(), "/turbine.stream");
-    }
-
-    @Bean
     public ServletRegistrationBean getServlet(){
         HystrixMetricsStreamServlet streamServlet = new HystrixMetricsStreamServlet();
         ServletRegistrationBean registrationBean = new ServletRegistrationBean(streamServlet);
@@ -31,4 +26,15 @@ public class TurbineApplication {
         registrationBean.setName("HystrixMetricsStreamServlet");
         return registrationBean;
     }
+
+    @Bean
+    public ServletRegistrationBean hystrixStream(){
+        TurbineStreamServlet turbineStreamServlet = new TurbineStreamServlet();
+        ServletRegistrationBean registrationBean = new ServletRegistrationBean(turbineStreamServlet);
+        registrationBean.setLoadOnStartup(2);
+        registrationBean.addUrlMappings("/turbine.stream");
+        registrationBean.setName("TurbineStreamServlet");
+        return registrationBean;
+    }
+
 }
